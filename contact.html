@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-950 text-gray-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Srujan Kute</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body class="flex flex-col min-h-screen pt-20">
+    <div id="navbar-container"></div>
+    <main class="flex-grow flex items-center justify-center px-6 py-20 bg-radial-gradient">
+        <div class="max-w-xl w-full text-center space-y-8 z-10">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white">Let's Connect</h1>
+                <p id="ctx-location" class="text-sm font-mono text-gray-500 mt-4 uppercase tracking-widest"></p>
+            </div>
+            <div class="bg-gray-900/40 backdrop-blur border border-gray-800 p-8 rounded-3xl shadow-2xl space-y-6 text-left">
+                <a id="ctx-email-link" href="#" class="block p-6 bg-gray-950 border border-gray-800 rounded-2xl hover:border-blue-500/50 hover:bg-gray-900 transition duration-300 group">
+                    <span class="block text-xs font-mono uppercase tracking-widest text-gray-500 group-hover:text-blue-400 transition">Direct Email</span>
+                    <span id="ctx-email-text" class="text-xl font-bold text-blue-500 mt-1 block truncate"></span>
+                </a>
+                <div class="grid grid-cols-2 gap-4">
+                    <a id="ctx-linkedin" href="#" target="_blank" class="p-4 bg-gray-950 border border-gray-800 text-sm font-bold text-center rounded-2xl hover:text-white hover:border-blue-500/30 transition duration-300">LinkedIn ↗</a>
+                    <a id="ctx-github" href="#" target="_blank" class="p-4 bg-gray-950 border border-gray-800 text-sm font-bold text-center rounded-2xl hover:text-white hover:border-blue-500/30 transition duration-300">GitHub ↗</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="footer-container" class="mt-auto"></div>
+    <script src="assets/js/utils.js"></script>
+</body>
+</html>

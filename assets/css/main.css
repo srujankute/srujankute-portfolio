@@ -1,0 +1,22 @@
+/* assets/css/main.css */
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.1; }
+    50% { opacity: 0.2; }
+}
+
+.bg-radial-gradient {
+    background-image: radial-gradient(circle at center, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+    position: relative;
+}
+
+.bg-radial-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.08) 0%, transparent 40%);
+    animation: pulseGlow 10s infinite ease-in-out;
+    pointer-events: none;
+    z-index: -1;
+}
+
+html { background-color: #030712; }

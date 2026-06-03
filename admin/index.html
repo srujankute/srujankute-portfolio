@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-950 text-gray-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Admin Console</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/js/utils.js"></script>
+</head>
+<body class="p-4 md:p-10 bg-gray-950">
+    <div class="max-w-7xl mx-auto">
+        
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4 bg-gray-900 border border-gray-800 p-6 rounded-2xl">
+            <div>
+                <h1 class="text-2xl font-black tracking-tight text-white">Dashboard Terminal</h1>
+                <p class="text-xs font-mono text-gray-500 uppercase mt-1">Live Database Injector</p>
+            </div>
+            <div class="flex gap-3">
+                <a href="../index.html" class="bg-blue-600 hover:bg-blue-500 text-sm font-bold px-5 py-2.5 rounded-xl text-white transition flex items-center shadow-lg">View Live Site &rarr;</a>
+                <button onclick="logoutAdmin()" class="bg-gray-950 border border-gray-800 hover:bg-gray-800 text-sm font-bold text-red-400 px-5 py-2.5 rounded-xl transition">Logout</button>
+            </div>
+        </header>
+
+        <!-- Tabs -->
+        <div class="flex flex-wrap gap-2 mb-8">
+            <button onclick="switchTab('profile-tab')" class="tab-btn active-tab px-5 py-2.5 rounded-xl bg-blue-600 text-sm font-bold text-white transition">Global Profile</button>
+            <button onclick="switchTab('skills-tab')" class="tab-btn px-5 py-2.5 rounded-xl bg-gray-900 border border-gray-800 text-sm text-gray-400 font-bold hover:text-white transition">Skills</button>
+            <button onclick="switchTab('projects-tab')" class="tab-btn px-5 py-2.5 rounded-xl bg-gray-900 border border-gray-800 text-sm text-gray-400 font-bold hover:text-white transition">Projects</button>
+            <button onclick="switchTab('certs-tab')" class="tab-btn px-5 py-2.5 rounded-xl bg-gray-900 border border-gray-800 text-sm text-gray-400 font-bold hover:text-white transition">Certifications</button>
+            <button onclick="switchTab('exp-tab')" class="tab-btn px-5 py-2.5 rounded-xl bg-gray-900 border border-gray-800 text-sm text-gray-400 font-bold hover:text-white transition">Experience</button>
+        </div>
+
+        <!-- TAB 1: PROFILE -->
+        <div id="profile-tab" class="tab-content block">
+            <form id="form-profile" class="bg-gray-900 border border-gray-800 p-8 rounded-2xl space-y-6">
+                <h2 class="text-xl font-bold text-white border-b border-gray-800 pb-4">Personal Configuration</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label class="block text-xs font-mono uppercase text-gray-500 mb-2">Display Name</label><input type="text" id="adm-name" class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white focus:border-blue-500 focus:outline-none"></div>
+                    <div><label class="block text-xs font-mono uppercase text-gray-500 mb-2">Job Title</label><input type="text" id="adm-title" class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white focus:border-blue-500 focus:outline-none"></div>
+                </div>
+                <div><label class="block text-xs font-mono uppercase text-gray-500 mb-2">Hero Bio</label><textarea id="adm-bio" rows="3" class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white focus:border-blue-500 focus:outline-none"></textarea></div>
+                <div><label class="block text-xs font-mono uppercase text-gray-500 mb-2">Location String</label><input type="text" id="adm-loc" class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white focus:border-blue-500 focus:outline-none"></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-gray-800">
+                    <div><label class="block text-xs font-mono uppercase text-gray-500 mb-2">Email</label><input type="email" id="adm-email" class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white focus:border-blue-500 focus:outline-none"></div>
+                    <div><label class="block text-xs font-mono uppercase text-gray-500 mb-2">LinkedIn URL</label><input type="url" id="adm-linkedin" class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white focus:border-blue-500 focus:outline-none"></div>
+                    <div><label class="block text-xs font-mono uppercase text-gray-500 mb-2">GitHub URL</label><input type="url" id="adm-github" class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white focus:border-blue-500 focus:outline-none"></div>
+                </div>
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-500 font-bold py-3.5 rounded-xl text-white transition text-sm">Save Global Profile</button>
+            </form>
+        </div>
+
+        <!-- TAB 2: SKILLS -->
+        <div id="skills-tab" class="tab-content hidden">
+            <div class="bg-gray-900 border border-gray-800 p-8 rounded-2xl space-y-6">
+                <h2 class="text-xl font-bold text-white border-b border-gray-800 pb-4">Skill Matrix</h2>
+                <div id="skills-container" class="space-y-4"></div>
+                <button onclick="saveSkills()" class="w-full bg-green-600 hover:bg-green-500 font-bold py-3.5 rounded-xl text-white transition text-sm">Save Skills Data</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: PROJECTS -->
+        <div id="projects-tab" class="tab-content hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <form id="form-proj" class="bg-gray-900 border border-gray-800 p-6 rounded-2xl space-y-4 h-fit">
+                <h3 class="font-bold text-white mb-4">Add Project</h3>
+                <input type="text" id="p-title" placeholder="Project Title" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white">
+                <input type="text" id="p-tech" placeholder="Tech Stack (comma separated)" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white">
+                <input type="url" id="p-link" placeholder="Repo/Demo Link" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white">
+                <textarea id="p-desc" placeholder="Description" rows="4" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white"></textarea>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-3 rounded-xl text-sm font-bold text-white">Add Project</button>
+            </form>
+            <div class="lg:col-span-2 bg-gray-900 border border-gray-800 p-6 rounded-2xl h-fit overflow-x-auto">
+                <table class="w-full text-left text-sm"><tbody id="table-proj"></tbody></table>
+            </div>
+        </div>
+
+        <!-- TAB 4: CERTIFICATIONS -->
+        <div id="certs-tab" class="tab-content hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <form id="form-cert" class="bg-gray-900 border border-gray-800 p-6 rounded-2xl space-y-4 h-fit">
+                <h3 class="font-bold text-white mb-4">Add Certification</h3>
+                <input type="text" id="c-title" placeholder="Title" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white">
+                <input type="text" id="c-issuer" placeholder="Issuer" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white">
+                <input type="date" id="c-date" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-gray-400">
+                <input type="url" id="c-link" placeholder="Verification URL" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white">
+                <textarea id="c-desc" placeholder="Details" rows="3" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white"></textarea>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-3 rounded-xl text-sm font-bold text-white">Add Cert</button>
+            </form>
+            <div class="lg:col-span-2 bg-gray-900 border border-gray-800 p-6 rounded-2xl h-fit overflow-x-auto">
+                <table class="w-full text-left text-sm"><tbody id="table-cert"></tbody></table>
+            </div>
+        </div>
+
+        <!-- TAB 5: EXPERIENCE -->
+        <div id="exp-tab" class="tab-content hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <form id="form-exp" class="bg-gray-900 border border-gray-800 p-6 rounded-2xl space-y-4 h-fit">
+                <h3 class="font-bold text-white mb-4">Add Experience</h3>
+                <input type="text" id="e-role" placeholder="Role/Title" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white">
+                <input type="text" id="e-company" placeholder="Company" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white">
+                <input type="text" id="e-dates" placeholder="Date Range" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white">
+                <input type="url" id="e-logo" placeholder="Logo Image URL (Optional)" class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white">
+                <textarea id="e-achievements" placeholder="Achievements" rows="4" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm text-white"></textarea>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-3 rounded-xl text-sm font-bold text-white">Add Exp</button>
+            </form>
+            <div class="lg:col-span-2 bg-gray-900 border border-gray-800 p-6 rounded-2xl h-fit overflow-x-auto">
+                <table class="w-full text-left text-sm"><tbody id="table-exp"></tbody></table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN JS LOGIC -->
+    <script>
+        function switchTab(id) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('bg-gray-900', 'text-gray-400');
+            });
+            document.getElementById(id).classList.remove('hidden');
+            event.currentTarget.classList.remove('bg-gray-900', 'text-gray-400');
+            event.currentTarget.classList.add('bg-blue-600', 'text-white');
+        }
+
+        function loadData() {
+            const db = getDB();
+            
+            // Profile Load
+            document.getElementById("adm-name").value = db.profile.name;
+            document.getElementById("adm-title").value = db.profile.title;
+            document.getElementById("adm-bio").value = db.profile.bio;
+            document.getElementById("adm-loc").value = db.profile.location;
+            document.getElementById("adm-email").value = db.contact.email;
+            document.getElementById("adm-linkedin").value = db.contact.linkedin;
+            document.getElementById("adm-github").value = db.contact.github;
+
+            // Skills Load
+            const sc = document.getElementById("skills-container");
+            sc.innerHTML = '';
+            for(let i=0; i<4; i++) {
+                let cat = db.skills[i] ? db.skills[i].category : '';
+                let items = db.skills[i] ? db.skills[i].items : '';
+                sc.innerHTML += `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-950 p-4 rounded-xl border border-gray-800">
+                        <div><label class="text-[10px] uppercase text-gray-500 block mb-1">Block ${i+1} Title</label><input type="text" id="s-cat-${i}" value="${cat}" class="w-full bg-gray-900 border border-gray-800 p-2 text-white text-sm rounded"></div>
+                        <div><label class="text-[10px] uppercase text-gray-500 block mb-1">Skills String</label><input type="text" id="s-item-${i}" value="${items}" class="w-full bg-gray-900 border border-gray-800 p-2 text-white text-sm rounded"></div>
+                    </div>
+                `;
+            }
+
+            // Tables Load
+            renderTable("table-proj", db.projects, "projects", p => `<span class="text-white font-bold block">${p.title}</span><span class="text-xs text-gray-500">${p.tech}</span>`);
+            renderTable("table-cert", db.certifications, "certifications", c => `<span class="text-white font-bold block">${c.title}</span><span class="text-xs text-gray-500">${c.issuer}</span>`);
+            renderTable("table-exp", db.experiences, "experiences", e => `<span class="text-white font-bold block">${e.role}</span><span class="text-xs text-gray-500">${e.company}</span>`);
+        }
+
+        function renderTable(elementId, arrayData, key, htmlCallback) {
+            document.getElementById(elementId).innerHTML = arrayData.map(item => `
+                <tr class="border-b border-gray-800/50 hover:bg-gray-800/20 transition">
+                    <td class="p-4">${htmlCallback(item)}</td>
+                    <td class="p-4 text-right"><button onclick="deleteItem('${key}', ${item.id})" class="text-xs text-red-400 bg-red-950/30 border border-red-900/50 px-3 py-1.5 rounded hover:bg-red-900 transition">Remove</button></td>
+                </tr>
+            `).join('');
+        }
+
+        window.deleteItem = (key, id) => {
+            let db = getDB();
+            db[key] = db[key].filter(i => i.id !== id);
+            saveDB(db); loadData();
+        };
+
+        // Form Listeners
+        document.getElementById("form-profile").onsubmit = e => {
+            e.preventDefault(); let db = getDB();
+            db.profile.name = document.getElementById("adm-name").value;
+            db.profile.title = document.getElementById("adm-title").value;
+            db.profile.bio = document.getElementById("adm-bio").value;
+            db.profile.location = document.getElementById("adm-loc").value;
+            db.contact.email = document.getElementById("adm-email").value;
+            db.contact.linkedin = document.getElementById("adm-linkedin").value;
+            db.contact.github = document.getElementById("adm-github").value;
+            saveDB(db); alert("Profile saved.");
+        };
+
+        window.saveSkills = () => {
+            let db = getDB(); db.skills = [];
+            for(let i=0; i<4; i++){
+                let c = document.getElementById(`s-cat-${i}`).value;
+                let t = document.getElementById(`s-item-${i}`).value;
+                if(c||t) db.skills.push({category: c, items: t});
+            }
+            saveDB(db); alert("Skills saved."); loadData();
+        };
+
+        document.getElementById("form-proj").onsubmit = e => {
+            e.preventDefault(); let db = getDB();
+            db.projects.push({id: Date.now(), title: document.getElementById("p-title").value, tech: document.getElementById("p-tech").value, link: document.getElementById("p-link").value, desc: document.getElementById("p-desc").value});
+            saveDB(db); e.target.reset(); loadData();
+        };
+
+        document.getElementById("form-cert").onsubmit = e => {
+            e.preventDefault(); let db = getDB();
+            db.certifications.push({id: Date.now(), title: document.getElementById("c-title").value, issuer: document.getElementById("c-issuer").value, date: document.getElementById("c-date").value, link: document.getElementById("c-link").value, desc: document.getElementById("c-desc").value});
+            saveDB(db); e.target.reset(); loadData();
+        };
+
+        document.getElementById("form-exp").onsubmit = e => {
+            e.preventDefault(); let db = getDB();
+            db.experiences.push({id: Date.now(), role: document.getElementById("e-role").value, company: document.getElementById("e-company").value, dates: document.getElementById("e-dates").value, logo: document.getElementById("e-logo").value, achievements: document.getElementById("e-achievements").value});
+            saveDB(db); e.target.reset(); loadData();
+        };
+
+        window.onload = loadData;
+    </script>
+</body>
+</html>

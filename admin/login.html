@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-950 text-gray-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../assets/js/utils.js"></script>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6 bg-gray-950">
+    <div class="max-w-md w-full bg-gray-900 border border-gray-800 p-10 rounded-3xl shadow-2xl space-y-8">
+        <div class="text-center">
+            <h1 class="text-3xl font-black tracking-tight text-white">Restricted Area</h1>
+            <p class="text-xs font-mono text-gray-500 uppercase tracking-widest mt-2">Admin Terminal Access</p>
+        </div>
+        <form id="login-form" class="space-y-5">
+            <div>
+                <label class="block text-xs font-mono uppercase text-gray-400 mb-2">Username</label>
+                <input type="text" id="user-input" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-500 text-white transition">
+            </div>
+            <div>
+                <label class="block text-xs font-mono uppercase text-gray-400 mb-2">Password</label>
+                <input type="password" id="pass-input" required class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-500 text-white transition">
+            </div>
+            <p id="error-msg" class="text-xs text-red-400 hidden font-mono text-center">Authentication Failed.</p>
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 py-3.5 text-sm font-bold rounded-xl transition text-white mt-4">Login</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById("login-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            if (loginAdmin(document.getElementById("user-input").value, document.getElementById("pass-input").value)) {
+                window.location.href = "index.html";
+            } else {
+                document.getElementById("error-msg").classList.remove("hidden");
+            }
+        });
+    </script>
+</body>
+</html>
