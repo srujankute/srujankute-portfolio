@@ -95,6 +95,7 @@ async function includeComponents() {
                     el.innerHTML = await response.text();
                     if (comp.id === "navbar-container") {
                         setActiveNavLink(prefix);
+                        initNavbar();
                     }
                 }
             } catch (err) {
@@ -102,6 +103,25 @@ async function includeComponents() {
             }
         }
     }
+}
+
+function initNavbar() {
+    const toggle = document.getElementById("mobile-nav-toggle");
+    const menu = document.getElementById("mobile-nav-menu");
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener("click", () => {
+        const isHidden = menu.classList.contains("hidden");
+        menu.classList.toggle("hidden", !isHidden);
+        toggle.setAttribute("aria-expanded", String(isHidden));
+    });
+
+    document.addEventListener("click", (event) => {
+        if (!menu.classList.contains("hidden") && !toggle.contains(event.target) && !menu.contains(event.target)) {
+            menu.classList.add("hidden");
+            toggle.setAttribute("aria-expanded", "false");
+        }
+    });
 }
 
 function setActiveNavLink(prefix) {
