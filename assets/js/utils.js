@@ -33,8 +33,51 @@ const DEFAULT_DATA = {
 };
 
 // 2. STORAGE SYSTEM HANDLERS
+function mergeArrayById(defaultArray, savedArray) {
+    if (!Array.isArray(defaultArray)) return Array.isArray(savedArray) ? savedArray : [];
+    if (!Array.isArray(savedArray)) return defaultArray;
+
+    const savedIds = new Set(savedArray.filter(item => item && item.id !== undefined).map(item => item.id));
+    const merged = [...savedArray];
+
+    for (const item of defaultArray) {
+        if (item && item.id !== undefined && !savedIds.has(item.id)) {
+            merged.push(item);
+        }
+    }
+
+    return merged;
+}
+
+function mergeDB(saved, defaults) {
+    if (!saved || typeof saved !== "object") {
+        return defaults;
+    }
+
+    return {
+        ...defaults,
+        ...saved,
+        skills: Array.isArray(saved.skills) ? saved.skills : defaults.skills,
+        projects: mergeArrayById(defaults.projects, saved.projects),
+        certifications: mergeArrayById(defaults.certifications, saved.certifications),
+        experiences: mergeArrayById(defaults.experiences, saved.experiences)
+    };
+}
+
 function initDB() {
-    if (!localStorage.getItem("portfolio_db")) {
+    const stored = localStorage.getItem("portfolio_db");
+    if (!stored) {
+        localStorage.setItem("portfolio_db", JSON.stringify(DEFAULT_DATA));
+        return;
+    }
+
+    try {
+        const parsed = JSON.parse(stored);
+        const merged = mergeDB(parsed, DEFAULT_DATA);
+        if (JSON.stringify(merged) !== JSON.stringify(parsed)) {
+            localStorage.setItem("portfolio_db", JSON.stringify(merged));
+        }
+    } catch (err) {
         localStorage.setItem("portfolio_db", JSON.stringify(DEFAULT_DATA));
     }
 }
