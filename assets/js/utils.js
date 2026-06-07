@@ -21,7 +21,8 @@ const DEFAULT_DATA = {
         { category: "Database", items: "MySQL, PostgreSQL" }
     ],
     projects: [
-        { id: 1, title: "Vehicle Order Sales Analysis", desc: "Global vehicle order volumes, revenue distribution, and supply chain performance dashboard built using Power BI.", tech: "PowerBI, DAX Functions, Power Query", link: "https://github.com/srujankute/Vehicle-Order-Sales-Analysis-PowerBI-Practice" }
+        { id: 1, title: "Vehicle Order Sales Analysis", desc: "Global vehicle order volumes, revenue distribution, and supply chain performance dashboard built using Power BI.", tech: "PowerBI, DAX Functions, Power Query", link: "https://github.com/srujankute/Vehicle-Order-Sales-Analysis-PowerBI-Practice" },
+        { id: 2, title: "Netflix Dashboard", desc: "Interactive dashboard for analyzing Netflix content performance and viewer engagement.", tech: "PowerBI, DAX Functions, Power Query", link: "https://github.com/srujankute/netflix-dashboard-powerbi" }
     ],
     certifications: [
         { id: 1, title: "Data Visualization with PowerBI", issuer: "Coding Ninjas", date: "2026-05-01", desc: "The course covered the full development lifecycle, starting with the heavy lifting in Power Query—cleaning messy data, handling nulls, and setting up proper ETL pipelines. From there, I got into data modeling and writing custom DAX expressions to handle complex calculations and time-intelligence metrics. Finally, I worked on the front-end side, building clean, interactive dashboards that actually make data easy to read and act on.", link: "https://certificate.codingninjas.com/view/1f4b73f718fcd629" }
