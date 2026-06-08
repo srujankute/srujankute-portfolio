@@ -21,8 +21,8 @@ const DEFAULT_DATA = {
         { category: "Database", items: "MySQL, PostgreSQL" }
     ],
     projects: [
-        { id: 2, title: "Vehicle Order Sales Analysis", desc: "Global vehicle order volumes, revenue distribution, and supply chain performance dashboard built using Power BI.", tech: "PowerBI, DAX Functions, Power Query", link: "https://github.com/srujankute/Vehicle-Order-Sales-Analysis-PowerBI-Practice" },
         { id: 1, title: "Netflix Dashboard", desc: "Interactive dashboard for analyzing Netflix content performance and viewer engagement.", tech: "PowerBI, DAX Functions, Power Query", link: "https://github.com/srujankute/netflix-dashboard-powerbi" },
+        { id: 2, title: "Vehicle Order Sales Analysis", desc: "Global vehicle order volumes, revenue distribution, and supply chain performance dashboard built using Power BI.", tech: "PowerBI, DAX Functions, Power Query", link: "https://github.com/srujankute/Vehicle-Order-Sales-Analysis-PowerBI-Practice" },
         { id: 3, title: "VeriTrust AI", desc: "VeriTrust AI is a hybrid verification dashboard that cross-checks news claims against live global headlines using a machine learning Stacking Ensemble and SerpApi consensus logic.", tech: "Machine Learning, Flask Framework (Python), Frontend (HTML/CSS/JS), External APIs (SerpApi)", link: "https://github.com/srujankute/VeriTrust-AI" }
     ],
     certifications: [
