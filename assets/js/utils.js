@@ -6,7 +6,7 @@ const DEFAULT_DATA = {
         name: "Srujan Kute",
         title: "Data Analyst",
         bio: "I turn raw numbers into clear business answers. I am an IT graduate specializing in writing clean SQL queries, processing data with Python, and designing sharp, interactive dashboards in PowerBI & Tableau.",
-        resumeLink: "assets/pdf/Srujan_Kute_Data_Analyst.pdf",
+        resumeLink: "assets/pdf/Srujan_Kute.pdf",
         location: "Pune, India"
     },
     contact: {
