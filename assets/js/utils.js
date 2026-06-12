@@ -41,12 +41,23 @@ function mergeArrayById(defaultArray, savedArray) {
     if (!Array.isArray(defaultArray)) return Array.isArray(savedArray) ? savedArray : [];
     if (!Array.isArray(savedArray)) return defaultArray;
 
-    const savedIds = new Set(savedArray.filter(item => item && item.id !== undefined).map(item => item.id));
-    const merged = [...savedArray];
+    const savedMap = new Map(savedArray.filter(item => item && item.id !== undefined).map(item => [item.id, item]));
+    const merged = [];
 
-    for (const item of defaultArray) {
-        if (item && item.id !== undefined && !savedIds.has(item.id)) {
-            merged.push(item);
+    for (const defItem of defaultArray) {
+        if (defItem && defItem.id !== undefined && savedMap.has(defItem.id)) {
+            const savedItem = savedMap.get(defItem.id);
+            merged.push({ ...savedItem, ...defItem });
+            savedMap.delete(defItem.id);
+        } else {
+            merged.push(defItem);
+        }
+    }
+
+    for (const savedItem of savedArray) {
+        if (savedItem && savedItem.id !== undefined && !savedMap.has(savedItem.id)) continue;
+        if (!merged.some(item => item.id === savedItem.id)) {
+            merged.push(savedItem);
         }
     }
 
